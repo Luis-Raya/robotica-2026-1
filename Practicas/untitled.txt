@@ -1,0 +1,199 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "5a140af8-ea76-4cd8-984c-668181e2e510",
+   "metadata": {},
+   "source": [
+    "# **UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO**  \n",
+    "# **FACULTAD DE INGENIERÍA**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "bf4a95a6-8a23-4bf9-be29-89d911b20e9e",
+   "metadata": {},
+   "source": [
+    "## **PRÁCTICA 0: NODOS Y TÓPICOS EN ROS 2**\n",
+    "\n",
+    "**Alumno:** José Luis Raya Cruz  \n",
+    "**Grupo:** 1  \n",
+    "**Profesor:** M.I. Erik Peña Medina  \n",
+    "**Fecha de entrega:** 10 de octubre de 2025"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "79b13452-2b6f-4b27-972d-244389f02dfa",
+   "metadata": {},
+   "source": [
+    "## **OBJETIVO**\n",
+    "Que los alumnos comprendan los conceptos básicos relacionados con los Nodos y los Tópicos, mediante la creación de un paquete con políticas en Python."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9689705b-654d-44ae-a9c1-a0b120df4669",
+   "metadata": {},
+   "source": [
+    "## **RÚBRICA DE EVALUACIÓN**\n",
+    "\n",
+    "### **PREVIO DE LA PRÁCTICA 0**\n",
+    "\n",
+    "#### **Definición de Nodo y Tópicos en ROS 2**\n",
+    "\n",
+    "**Nodo:** En ROS 2, un nodo es una unidad de procesamiento que realiza una función específica dentro de un sistema robótico. Cada nodo representa un proceso independiente que puede comunicarse con otros nodos mediante tópicos, servicios o acciones.\n",
+    "\n",
+    "**Tópicos:** Son canales de comunicación asíncrona que implementan el patrón publicador-suscriptor. Permiten que los nodos intercambien mensajes de forma desacoplada, donde los publicadores envían datos y los suscriptores los reciben sin necesidad de conocerse directamente.\n",
+    "\n",
+    "#### **Documentación de creación de paquetes (árbol)**\n",
+    "```\n",
+    "ROS2Dev/\n",
+    "└── ws_new/\n",
+    "    └── src/\n",
+    "        └── conversion_rpm/\n",
+    "            ├── package.xml\n",
+    "            ├── setup.py\n",
+    "            ├── setup.cfg\n",
+    "            ├── resource/\n",
+    "            │   └── conversion_rpm\n",
+    "            └── conversion_rpm/\n",
+    "                ├── __init__.py\n",
+    "                ├── rpm_publisher.py\n",
+    "                └── rpm_to_rads.py\n",
+    "```\n",
+    "\n",
+    "#### **Los tres tipos de interfaces en ROS 2**\n",
+    "1. **Mensajes (Messages):** Comunicación asíncrona unidireccional mediante tópicos\n",
+    "2. **Servicios (Services):** Comunicación síncrona request-response  \n",
+    "3. **Acciones (Actions):** Comunicación asíncrona con feedback para tareas largas"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f2f3638b-c872-4fa7-bc7f-1ca1c756f6ef",
+   "metadata": {},
+   "source": [
+    "### **DESARROLLO DE LA PRÁCTICA**\n",
+    "\n",
+    "#### **Parte 1: Realizada en clase**\n",
+    "Durante la sesión de clase se creó el espacio de trabajo y la estructura básica del paquete, siguiendo la metodología del repositorio oficial de la materia [1].\n",
+    "\n",
+    "#### **Parte 2: Implementación de nodos**\n",
+    "1. **Nodo Publicador (`rpm_publisher.py`):**\n",
+    "   - Genera señal senoidal de RPM (50-150 RPM, 0.5 Hz)\n",
+    "   - Publica en tópico `/rpm` cada 1.5 segundos\n",
+    "   - Usa mensaje `std_msgs/Float32`\n",
+    "\n",
+    "2. **Nodo Suscriptor-Publicador (`rpm_to_rads.py`):**\n",
+    "   - Se suscribe a `/rpm`\n",
+    "   - Convierte RPM a rad/s: `rad/s = RPM × (2π/60)`\n",
+    "   - Publica en tópico `/rads`\n",
+    "\n",
+    "#### **Comandos ejecutados:**\n",
+    "```bash\n",
+    "cd ~/ROS2Dev/ws_new/src\n",
+    "ros2 pkg create --build-type ament_python conversion_rpm\n",
+    "cd conversion_rpm/conversion_rpm\n",
+    "nano rpm_publisher.py\n",
+    "nano rpm_to_rads.py\n",
+    "chmod +x rpm_publisher.py\n",
+    "chmod +x rpm_to_rads.py\n",
+    "cd ~/ROS2Dev/ws_new\n",
+    "colcon build --packages-select conversion_rpm\n",
+    "source install/setup.bash\n",
+    "ros2 run conversion_rpm rpm_to_rads_converter\n",
+    "ros2 run conversion_rpm rpm_publisher\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "409a4417-10c4-4b55-917e-992f56889d42",
+   "metadata": {},
+   "source": [
+    "### **RESULTADOS**\n",
+    "\n",
+    "#### **Evidencia de funcionamiento**\n",
+    "\n",
+    "[![Ejecución del Sistema ROS 2 - Conversión RPM a rad/s](https://img.youtube.com/vi/VIDEO_ID/mqdefault.jpg)](https://drive.google.com/file/d/1ZXgzu4Q2yjTKZ2sGQdPd479MLMIoVIWY/view)\n",
+    "\n",
+    "**Video 1.** Demostración del sistema completo en funcionamiento, mostrando la comunicación en tiempo real entre el publicador de RPM y el conversor a rad/s.\n",
+    "\n",
+    "#### **Verificación del sistema:**\n",
+    "```bash\n",
+    "# Tópicos activos:\n",
+    "# /rpm\n",
+    "# /rads\n",
+    "\n",
+    "# Nodos activos:\n",
+    "# /rpm_publisher\n",
+    "# /rpm_to_rads_converter\n",
+    "```\n",
+    "\n",
+    "#### **Ejemplo de conversión:**\n",
+    "- **Entrada:** 125.43 RPM\n",
+    "- **Salida:** 13.14 rad/s\n",
+    "- **Fórmula aplicada:** `rad/s = RPM × (2 × π ÷ 60)`"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d8c7e1a5-8c2f-4c8d-9e5a-8b9b4c7a3f1a",
+   "metadata": {},
+   "source": [
+    "### **CONCLUSIONES**\n",
+    "\n",
+    "El desarrollo de esta práctica permitió comprender los conceptos fundamentales de nodos y tópicos en ROS 2. Se logró crear un sistema donde dos nodos se comunican eficientemente, demostrando el patrón publicador-suscriptor en acción.\n",
+    "\n",
+    "La implementación del nodo publicador que genera una señal senoidal de RPM y el nodo conversor que transforma estos valores a rad/s, muestra una aplicación práctica para el control de velocidad en sistemas mecatrónicos. La modificación del periodo de publicación a 1.5 segundos permitió observar mejor el comportamiento del sistema.\n",
+    "\n",
+    "Esta experiencia consolidó el entendimiento de la arquitectura modular de ROS 2 y su aplicabilidad en problemas de ingeniería reales, cumpliendo completamente con el objetivo de la práctica."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a1b2c3d4-e5f6-4g7h-8i9j-0k1l2m3n4o5p",
+   "metadata": {},
+   "source": [
+    "### **BIBLIOGRAFÍA**\n",
+    "\n",
+    "[1] *Repositorio oficial de Robótica 2026-1*, \"nodes_topics_py\", UNAM-FI, 2025. [Online]. Available: https://github.com/arrg-mx/robotica_2026-1/tree/main/nodes_topics_py\n",
+    "\n",
+    "[2] *ROS 2 Documentation*, \"Understanding ROS 2 Topics,\" Open Robotics, 2023. [Online]. Available: https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html\n",
+    "\n",
+    "[3] E. Peña Medina, \"Tutorial de Nodos y Tópicos en ROS 2\", YouTube, 2023. [Online]. Available: https://youtu.be/PBtGcoQul6w\n",
+    "\n",
+    "[4] E. Peña Medina, \"ROS 2 Publisher and Subscriber Tutorial\", YouTube, 2023. [Online]. Available: https://youtu.be/gdZV_0blQCY"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f3e4d5c6-b7a8-4c9d-8e0f-1a2b3c4d5e6f",
+   "metadata": {},
+   "source": [
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
