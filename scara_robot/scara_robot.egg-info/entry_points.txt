@@ -1,3 +1,0 @@
-[console_scripts]
-move_scara = scara_robot.move_scara:main
-
