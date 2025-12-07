@@ -1,0 +1,17 @@
+[2.992s] Invoking command in '/home/robousr/scara_project/build/scara_robot': PYTHONPATH=/home/robousr/scara_project/build/scara_robot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/robousr/scara_project/install/scara_robot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/robousr/scara_project/build/scara_robot/build --no-deps symlink_data
+[3.593s] running develop
+[4.347s] running egg_info
+[4.348s] writing scara_robot.egg-info/PKG-INFO
+[4.349s] writing dependency_links to scara_robot.egg-info/dependency_links.txt
+[4.350s] writing entry points to scara_robot.egg-info/entry_points.txt
+[4.350s] writing requirements to scara_robot.egg-info/requires.txt
+[4.351s] writing top-level names to scara_robot.egg-info/top_level.txt
+[4.355s] reading manifest file 'scara_robot.egg-info/SOURCES.txt'
+[4.356s] writing manifest file 'scara_robot.egg-info/SOURCES.txt'
+[4.358s] running build_ext
+[4.359s] Creating /home/robousr/scara_project/install/scara_robot/lib/python3.10/site-packages/scara-robot.egg-link (link to .)
+[4.360s] Installing move_scara script to /home/robousr/scara_project/install/scara_robot/bin
+[4.361s] 
+[4.361s] Installed /home/robousr/scara_project/build/scara_robot
+[4.362s] running symlink_data
+[4.430s] Invoked command in '/home/robousr/scara_project/build/scara_robot' returned '0': PYTHONPATH=/home/robousr/scara_project/build/scara_robot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/robousr/scara_project/install/scara_robot/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/robousr/scara_project/build/scara_robot/build --no-deps symlink_data
