@@ -1,0 +1,15 @@
+package.xml
+setup.py
+launch/view_scara.launch.py
+resource/scara_robot
+rviz/scara.rviz
+scara_robot/__init__.py
+scara_robot/move_scara.py
+scara_robot.egg-info/PKG-INFO
+scara_robot.egg-info/SOURCES.txt
+scara_robot.egg-info/dependency_links.txt
+scara_robot.egg-info/entry_points.txt
+scara_robot.egg-info/requires.txt
+scara_robot.egg-info/top_level.txt
+scara_robot.egg-info/zip-safe
+urdf/scara.urdf
